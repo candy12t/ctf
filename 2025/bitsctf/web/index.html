@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Auth Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            padding: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .token-display {
+            word-break: break-all;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Authentication</h1>
+        
+        <div class="login-section">
+            <h2>Login</h2>
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password" disabled>
+                <button onclick="login()">Login</button>
+            </div>
+        </div>
+
+        <div id="tokenInfo" class="hidden">
+            <h2>Session Info</h2>
+            <p>Role: <span id="userRole">user</span></p>
+            <div class="token-display" id="tokenDisplay"></div>
+            
+            <button onclick="accessAdmin()">Access Admin Area</button>
+            
+            <div id="adminContent" class="hidden">
+                <h3>Admin Content:</h3>
+                <pre id="flagContent"></pre>
+            </div>
+            
+            <div id="publicKeyDisplay" class="hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                
+                const data = await response.json();
+                localStorage.setItem('jwt', data.token);
+                
+                document.getElementById('tokenInfo').classList.remove('hidden');
+                document.getElementById('tokenDisplay').textContent = data.token;
+            } catch (error) {
+                console.error('Login failed:', error);
+            }
+        }
+
+        async function accessAdmin() {
+            try {
+                const response = await fetch('/admin', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('adminContent').classList.remove('hidden');
+                    document.getElementById('flagContent').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    alert('Admin access denied!');
+                }
+            } catch (error) {
+                console.error('Admin access failed:', error);
+            }
+        }
+
+        async function getPublicKey() {
+            try {
+                const response = await fetch('/public-key');
+                const key = await response.text();
+                document.getElementById('publicKeyDisplay').classList.remove('hidden');
+                document.getElementById('publicKeyDisplay').innerHTML = `
+                    <h3>Public Key:</h3>
+                    <pre>${key}</pre>
+                `;
+            } catch (error) {
+                console.error('Failed to fetch public key:', error);
+            }
+        }
+    </script>
+</body>
+</html>

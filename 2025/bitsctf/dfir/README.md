@@ -1,0 +1,45 @@
+# DFIR
+
+## Baby DFIR
+
+```bash
+$ strings abc.ad1
+ADSEGMENTEDFILE
+ADLOGICALIMAGE
+C:\Users\vboxuser\Desktop
+C:\Users\vboxuser\Desktop]
+desktop.ini
+&-QL
+w^L_W
+20250206T225205.079274
+20250206T222016.621066B
+20250206T222016.621066[
+falset
+false
+true
+true
+true
+false
+true!
+9e36cc3537ee9ee1e3b10fa4e761045b
+7726f55012e1e26cc762c9982e7c6c54ca7bb303
+flag.txt
+20250206T225151.348146k
+20250206T225125.094082
+20250206T225151.158078
+false
+false
+true
+false
+false*
+falseB
+truev
+3677fb16caa7ba1e220668079cf26838
+035037471f31c918556e266b9bfc1bbd4c026ce5ATTRGUID
+5Lv!G
+d:~O
+e.*`^
+ZMq@
+@'#$L
+LOCSGUID
+```

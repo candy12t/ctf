@@ -1,0 +1,27 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Tue Feb 11 00:22:59 2025
+Invocation: foremost weird.png 
+Output directory: /Users/candy12t/dev/github.com/candy12t/ctf/2025/bitsctf/forensics/output
+Configuration file: /opt/homebrew/etc/foremost.conf
+------------------------------------------------------------------
+File: weird.png
+Start: Tue Feb 11 00:22:59 2025
+Length: Unknown
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000144.jpg 	     329 KB 	      73733 	 
+1:	00000802.wav 	     286 KB 	     411120 	 
+2:	00000000.png 	      72 KB 	          0 	  (225 x 225)
+Finish: Tue Feb 11 00:22:59 2025
+
+3 FILES EXTRACTED
+	
+jpg:= 1
+rif:= 1
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Tue Feb 11 00:22:59 2025
